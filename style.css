@@ -1,7 +1,26 @@
 .weather-details {
-    height: 70vh;
+    height: 40vh;
 }
 .forecast {
    
 
+}
+.container-fluid{
+    width: 90%;
+    background-color:#f0f0f0;
+}
+.main-header {
+    background-color: #565457;
+    text-align: center;
+    color: #fff;
+    width: 100%;
+    margin: 5px 0 5px 0;
+}
+.weather-details {
+    background-color: #f0f0f0;
+    opacity: .80;
+    border: 1px solid #afabb1;    
+    border-radius: 5px;
+    margin-bottom: 20px;
+    border-top: 2px solid #afabb1;
 }

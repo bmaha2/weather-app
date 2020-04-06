@@ -7,9 +7,10 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
   <link rel="stylesheet" href="style.css">
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js">
+
+
   <title>weather-app</title>
 </head>
 
@@ -17,47 +18,63 @@
   <div class="container-fluid">
     <div class="row">
       <header class="main-header">
-        <h1>Weather Dashboard</h1>
+        <h2>Weather Dashboard</h2>
       </header>
     </div>
     <div class="row">
-      <div class="col-3">
+      <div class="col-5">
         <form>
           <div class="form-inline">
-            <input type="text" class="form-control mr-1" id="search-city" />
-            <button type="submit" class="btn btn-primary">&#x1f50d;</button>
+            <input type="text" id="input-city" class="form-control mr-1" id="search-city" />
+            <button type="submit" id="find-city" class="btn btn-primary">&#x1f50d;</button>
           </div>
         </form>
 
         <div class="container history"></div>
       </div>
-      <div class="col-9">
+      <div class="col-7">
         <div class="weather-details">
-          <h4 id="city-name">Seattle</h4>
-          <div id="temperature">temperature</div>
-          <div id="humidity">humidity</div>
-          <div id="wind-speed">wind-speed</div>
-          <div id="UV-index">UV-index</div>
+          <h4 id="city-name"></h4>
+          <div id="temperature"></div>
+          <div id="humidity"></div>
+          <div id="wind-speed"></div>
+          <div id="UV-index"></div>
         </div>
-        <div></div>
+        
         <h4>5-Day Forecast</h4>
 
         <div class="card-group row forecast">
-          <div class="card">
-            <img src="..." class="card-img-top" alt="..." />
+          <div id="Day" class="card">
+            <div class="date"></div>
+            <img src="" class="icon"></img>
+            <div class="temp"></div>
+            <div class="humidity"></div>
           </div>
-          <div class="card">
-            <img src="..." class="card-img-top" alt="..." />
+          <div id="Day" class="card">
+            <div class="date"></div>
+            <img src="" class="icon"></img>
+            <div class="temp"></div>
+            <div class="humidity"></div>
           </div>
-          <div class="card">
-            <img src="..." class="card-img-top" alt="..." />
+          <div id="Day" class="card">
+            <div class="date"></div>
+            <img src="" class="icon"></img>
+            <div class="temp"></div>
+            <div class="humidity"></div>
           </div>
-          <div class="card">
-            <img src="..." class="card-img-top" alt="..." />
+          <div id="Day" class="card">
+            <div class="date"></div>
+            <img src="" class="icon"></img>
+            <div class="temp"></div>
+            <div class="humidity"></div>
           </div>
-          <div class="card">
-            <img src="..." class="card-img-top" alt="..." />
+          <div id="Day" class="card">
+            <div class="date"></div>
+            <img src="" class="icon"></img>
+            <div class="temp"></div>
+            <div class="humidity"></div>
           </div>
+
         </div>
       </div>
     </div>

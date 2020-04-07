@@ -1,3 +1,8 @@
+body {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
 .weather-details {
     height: 40vh;
 }
@@ -7,7 +12,7 @@
 }
 .container-fluid{
     width: 90%;
-    background-color:#f0f0f0;
+    background-color:#fff;
 }
 .main-header {
     background-color: #565457;
@@ -17,10 +22,57 @@
     margin: 5px 0 5px 0;
 }
 .weather-details {
-    background-color: #f0f0f0;
+    background-color: #fff;
     opacity: .80;
     border: 1px solid #afabb1;    
     border-radius: 5px;
     margin-bottom: 20px;
     border-top: 2px solid #afabb1;
+}
+.card img{
+    width: 60px;
+    margin-left: 30px;
+}
+.card {
+    background-color: rgba(8, 114, 235, 0.924);
+    color: #fff;
+    padding: 5px;
+    margin: 5x;
+    text-align: center;
+    border-radius: 5px;
+    
+}
+.col-3 {
+    background-color: rgb(248, 248, 247);
+}
+#input-city {
+    padding: 0;
+}
+
+#day2, #day3, #day4, #day5 {
+    margin-left: 10px;
+    border-radius: 5px;
+    padding: 0;
+}
+#day1 {
+    border-radius: 5px;
+    padding: 0;
+}
+.normal {
+    background-color: green;
+}
+.moderate {
+    background-color: yellow;
+}
+.severe {
+    background-color: red;
+   
+}
+.normal, .moderate, .severe {
+    padding: 5px;
+    border-radius: 5px;
+}
+#city-name {
+    background-color:rgba(8, 114, 235, 0.924);
+    color: #fff;
 }

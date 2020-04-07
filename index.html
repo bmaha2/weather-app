@@ -7,8 +7,8 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js">
+
+
 
 
   <title>weather-app</title>
@@ -22,17 +22,17 @@
       </header>
     </div>
     <div class="row">
-      <div class="col-5">
-        <form>
+      <div class="col-3">
+        <form method="POST" id="city-form">
           <div class="form-inline">
             <input type="text" id="input-city" class="form-control mr-1" id="search-city" />
             <button type="submit" id="find-city" class="btn btn-primary">&#x1f50d;</button>
           </div>
         </form>
 
-        <div class="container history"></div>
+        <div class="history"></div>
       </div>
-      <div class="col-7">
+      <div class="col-9">
         <div class="weather-details">
           <h4 id="city-name"></h4>
           <div id="temperature"></div>
@@ -40,35 +40,35 @@
           <div id="wind-speed"></div>
           <div id="UV-index"></div>
         </div>
-        
-        <h4>5-Day Forecast</h4>
+
+        <h4 id="fiveDayForecast"></h4>
 
         <div class="card-group row forecast">
-          <div id="Day" class="card">
+          <div id="day1" class="card">
             <div class="date"></div>
             <img src="" class="icon"></img>
             <div class="temp"></div>
             <div class="humidity"></div>
           </div>
-          <div id="Day" class="card">
+          <div id="day2" class="card">
             <div class="date"></div>
             <img src="" class="icon"></img>
             <div class="temp"></div>
             <div class="humidity"></div>
           </div>
-          <div id="Day" class="card">
+          <div id="day3" class="card">
             <div class="date"></div>
             <img src="" class="icon"></img>
             <div class="temp"></div>
             <div class="humidity"></div>
           </div>
-          <div id="Day" class="card">
+          <div id="day4" class="card">
             <div class="date"></div>
             <img src="" class="icon"></img>
             <div class="temp"></div>
             <div class="humidity"></div>
           </div>
-          <div id="Day" class="card">
+          <div id="day5" class="card">
             <div class="date"></div>
             <img src="" class="icon"></img>
             <div class="temp"></div>
@@ -79,8 +79,8 @@
       </div>
     </div>
   </div>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
   <script src="script.js"></script>
 </body>
 

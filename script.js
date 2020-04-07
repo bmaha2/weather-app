@@ -39,7 +39,7 @@ $(document).ready(function () {
   var APIKey = "ccc5796d60184c50f2674c57d349cd70";
   var history = [];
   $("#input-city").val("");
-
+  getLocalstorage();
   // This .on("click") function will trigger the AJAX Call
   $("#find-city").on("click", function (event) {
     event.preventDefault();
@@ -49,26 +49,20 @@ $(document).ready(function () {
     // building the URL needed to query the database
     var queryURL = generateCityForecastURL(city);
     fetchWeatherData(queryURL);
-    getLocalstorage();
     setLocalStorage();
     //document.getElementById("city-form").reset();
-
 
   });
 
   function generateCityForecastURL(city) {
-
     return "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey;
   }
 
   function fetchWeatherData(queryURL) {
-    
     $.ajax({
       url: queryURL,
       method: "GET"
     }).then(processWeatherData);
-
-
   }
   function processWeatherData(response) {
     console.log(response);
@@ -93,6 +87,10 @@ $(document).ready(function () {
     var uvLon = city.coord.lon;
     fetchUVData(uvLat, uvLon);
     var weatherIcon = todaysData.weather[0].icon;
+    $("#city-name").empty();
+    $("#temperature").empty();
+    $("#humidity").empty();
+    $("#wind-speed").empty();
 
     $("#city-name").append(city.name).append(" (" + formatted_date + ") ").append(`<img id="weatherIcon" src ="${generateIconURL(weatherIcon)}">`);
     var tempF = formatTemp(todaysData.main.temp);
@@ -100,13 +98,13 @@ $(document).ready(function () {
     $("#temperature").append("Temperature: " + tempF + " &#xb0;F");
     $("#humidity").append("Humidity: " + todaysData.main.humidity + " %");
     $("#wind-speed").append("Wind Speed: " + (todaysData.wind.speed * 2.236936).toFixed(1) + " MPH");
-
   }
   function fetchUVData(uvLat, uvLon) {
     $.ajax({
       url: "https://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + "&lat=" + uvLat + "&lon=" + uvLon,
       method: "GET"
     }).then(function (response) {
+      $("#UV-index").empty();
       $("#UV-index").append("UV Index: " + '<span id= "level">' + response.value + '</span>');
       if (response.value > 0 && response.value < 3) {
         $("#level").addClass("normal");

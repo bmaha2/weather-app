@@ -39,11 +39,11 @@ $(document).ready(function () {
   var APIKey = "ccc5796d60184c50f2674c57d349cd70";
   var history = [];
   $("#input-city").val("");
-  
+
   // This .on("click") function will trigger the AJAX Call
   $("#find-city").on("click", function (event) {
     event.preventDefault();
-    
+
 
     var city = $("#input-city").val();
     // building the URL needed to query the database
@@ -62,6 +62,7 @@ $(document).ready(function () {
   }
 
   function fetchWeatherData(queryURL) {
+    
     $.ajax({
       url: queryURL,
       method: "GET"
@@ -71,14 +72,10 @@ $(document).ready(function () {
   }
   function processWeatherData(response) {
     console.log(response);
-
-
-
     var todaysData = response.list[0];
     renderTodaysWeather(todaysData, response.city);
-
     renderForecast(response);
-
+    //$(".weather-details").empty();
   }
   function formatTemp(temp) {
     return ((temp - 273.15) * 1.80 + 32).toFixed(1);
@@ -154,12 +151,12 @@ $(document).ready(function () {
     return forecastData;
   }
   function setLocalStorage() {
-    $('input[type="text"]').each(function () {      
+    $('input[type="text"]').each(function () {
       var id = $(this).attr('id');
       var value = $(this).val();
       history.push(value)
       localStorage.setItem(id, JSON.stringify(history));
-      
+
     });
   }
   function getLocalstorage() {
@@ -171,14 +168,11 @@ $(document).ready(function () {
       return;
     }
     $(".history").empty();
-    
-    var row = $("<p>").css ("border", "1px solid blue");
-    row.append(value);
-   
-    
-    //cell.(value);
-    //row.append(cell);
-      $(".history").append(row);
-    
+    var ul = $("<ul>");
+    for (var i = 0; i < value.length; i++) {
+      var li = $("<li>").append(value[i]);
+      ul.append(li);
+    }
+    $(".history").append(ul);
   }
 });

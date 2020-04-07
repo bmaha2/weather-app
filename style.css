@@ -76,3 +76,21 @@ body {
     background-color:rgba(8, 114, 235, 0.924);
     color: #fff;
 }
+ul {
+    list-style-type: none;
+    margin-top: 10px;
+    padding: 0;
+    
+    
+}
+li {
+    border: 1px solid #565457;
+    padding:0 0 0 5px;
+    margin-bottom: 1px;
+    color: #fff;
+    
+    background-color: rgba(8, 114, 235, 0.924);
+    width: 100%;
+    border-radius: 3px;
+    height: 30px;
+}

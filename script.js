@@ -1,57 +1,20 @@
-
-/*
-submit request for city
-
-create queryURL the user provides
-add it history
-
-when data returned
-extract:
-city name
-date
-an icon for weather condition
-the temperature
-humidity
-wind-speed
-UV index
-within UV
-three conditoins
-add css class 
-favorable
-moderate
-severe
-request for 5day forecast
-append the data to the page
-
-user clicks the history 
-query with that city
-
-api.openweathermap.org/data/2.5/weather?q=London
-api key:
- ccc5796d60184c50f2674c57d349cd70
- http://api.openweathermap.org/data/2.5/weather?q=London&appid=ccc5796d60184c50f2674c57d349cd70
-
-api.openweathermap.org/data/2.5/forecast?q={city name}&appid={your api key}
-
-*/
-
 $(document).ready(function () {
   var APIKey = "ccc5796d60184c50f2674c57d349cd70";
-  var history = [];
+  var STORAGE_KEY = "city-history";
+
   $("#input-city").val("");
-  getLocalstorage();
-  // This .on("click") function will trigger the AJAX Call
+  updateHistory();
+  var history = getLocalstorage();
+  var queryURL = generateCityForecastURL(history[(history.length - 1)]);
+  fetchWeatherData(queryURL);
+
   $("#find-city").on("click", function (event) {
     event.preventDefault();
-
-
     var city = $("#input-city").val();
-    // building the URL needed to query the database
+    setLocalStorage(city);
+    updateHistory();
     var queryURL = generateCityForecastURL(city);
     fetchWeatherData(queryURL);
-    setLocalStorage();
-    //document.getElementById("city-form").reset();
-
   });
 
   function generateCityForecastURL(city) {
@@ -64,20 +27,22 @@ $(document).ready(function () {
       method: "GET"
     }).then(processWeatherData);
   }
+
   function processWeatherData(response) {
     console.log(response);
     var todaysData = response.list[0];
     renderTodaysWeather(todaysData, response.city);
     renderForecast(response);
-    //$(".weather-details").empty();
   }
+
   function formatTemp(temp) {
     return ((temp - 273.15) * 1.80 + 32).toFixed(1);
-
   }
+
   function generateIconURL(icon) {
     return "https://openweathermap.org/img/wn/" + icon + ".png";
   }
+
   function renderTodaysWeather(todaysData, city) {
     var date = todaysData.dt;
     //console.log(date);
@@ -91,14 +56,13 @@ $(document).ready(function () {
     $("#temperature").empty();
     $("#humidity").empty();
     $("#wind-speed").empty();
-
     $("#city-name").append(city.name).append(" (" + formatted_date + ") ").append(`<img id="weatherIcon" src ="${generateIconURL(weatherIcon)}">`);
     var tempF = formatTemp(todaysData.main.temp);
-
     $("#temperature").append("Temperature: " + tempF + " &#xb0;F");
     $("#humidity").append("Humidity: " + todaysData.main.humidity + " %");
     $("#wind-speed").append("Wind Speed: " + (todaysData.wind.speed * 2.236936).toFixed(1) + " MPH");
   }
+
   function fetchUVData(uvLat, uvLon) {
     $.ajax({
       url: "https://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + "&lat=" + uvLat + "&lon=" + uvLon,
@@ -112,13 +76,10 @@ $(document).ready(function () {
         $("#level").addClass("moderate");
       } else {
         $("#level").addClass("severe");
-
       }
-
-
     });
-
   }
+
   function renderForecast(response) {
     $("#fiveDayForecast").html("5-Day Forecast:");
     var days = extractForecastData(response.list);
@@ -131,8 +92,6 @@ $(document).ready(function () {
       currentCard.find(".icon").attr("src", generateIconURL(currentData.icon));
       currentCard.find(".temp").html("Temp: " + currentData.temp + " &#xb0;F");
       currentCard.find(".humidity").html("Humidity: " + currentData.humidity + "%");
-
-
     })
   }
   function extractForecastData(list) {
@@ -148,27 +107,38 @@ $(document).ready(function () {
     }
     return forecastData;
   }
-  function setLocalStorage() {
-    $('input[type="text"]').each(function () {
-      var id = $(this).attr('id');
-      var value = $(this).val();
-      history.push(value)
-      localStorage.setItem(id, JSON.stringify(history));
-
-    });
+  function setLocalStorage(city) {
+    var history = getLocalstorage();
+    console.log(history);
+    history.push(city);
+    history = JSON.stringify(history);
+    localStorage.setItem(STORAGE_KEY, history);
   }
   function getLocalstorage() {
-    //var id = $('input[type="text"]').attr('id');
-
-    var value = JSON.parse(localStorage.getItem("input-city"));
-    console.log(value)
-    if (value === null) {
-      return;
+    var value = localStorage.getItem(STORAGE_KEY);
+    if (!value) {
+      value = [];
+    } else {
+      value = JSON.parse(value);
     }
+    return value;
+
+  }
+  function updateHistory() {
+    var history = getLocalstorage();
+    console.log(history);
     $(".history").empty();
     var ul = $("<ul>");
-    for (var i = 0; i < value.length; i++) {
-      var li = $("<li>").append(value[i]);
+    for (var i = 0; i < history.length; i++) {
+      var li = $("<li>").append(history[i]);
+      li.on("click", function (e) {
+        var target = $(e.target);
+        console.log(target);
+        if (target.is("li")) {
+          var queryURL = generateCityForecastURL(target.text());
+          fetchWeatherData(queryURL);
+        }
+      });
       ul.append(li);
     }
     $(".history").append(ul);

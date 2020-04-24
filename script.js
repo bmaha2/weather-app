@@ -1,7 +1,6 @@
 $(document).ready(function () {
   var APIKey = "ccc5796d60184c50f2674c57d349cd70";
   var STORAGE_KEY = "city-history";
-
   $("#input-city").val("");
   updateHistory();
   var history = getLocalstorage();

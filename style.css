@@ -50,10 +50,12 @@ body {
     margin-left: 10px;
     border-radius: 5px;
     padding: 0;
+    border: none;
 }
 #day1 {
     border-radius: 5px;
     padding: 0;
+    border: none;
 }
 .normal {
     background-color: green;
